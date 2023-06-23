@@ -1,4 +1,4 @@
-# Mythical-Odyssey
+# Projeto CI Doe 2000
 First game project in group
 
 <br>
