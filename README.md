@@ -1,4 +1,4 @@
-# Projeto CI Doe 2000
+# Project CI Doe 2000
 First game project in group
 
 <br>
