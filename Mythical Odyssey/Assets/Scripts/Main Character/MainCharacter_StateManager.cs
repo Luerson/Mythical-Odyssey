@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class MainCharacter_StateManager : MonoBehaviour
         IDLE,
         RUN,
         DASH,
+        ATTACK,
+        HEAL,
         PROTECT,
         ON_HIT,
         DEAD
@@ -28,6 +31,30 @@ public class MainCharacter_StateManager : MonoBehaviour
     MainCharacter_BaseState OnHitState = new MainCharacter_OnHitState();
     MainCharacter_BaseState DeadState = new MainCharacter_DeadState();
 
+    // Constants
+    public const int INITIAL_HEALTH = 100;
+    public const float INITIAL_STAMINA = 100f;
+    public const int INITIAL_DAMAGE = 10;
+    
+    public const float NORMAL_SPEED = 120f;
+    public const float DASH_SPEED = 3 * NORMAL_SPEED;
+    public const float HEALING_SPEED = NORMAL_SPEED / 2;
+    public const float STAMINA_RECOVER_SPEED = INITIAL_STAMINA / 10;
+
+    public const float DASH_STAMINA_CONSUME = INITIAL_STAMINA / 2;
+
+
+    // Variables
+    int maxHealth;
+    int currentHealth;
+
+    float maxStamina;
+    float currentStamina;
+
+    float currentSpeed;
+
+    int currentDamage;
+
 
 
     /**********************/
@@ -37,6 +64,14 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     void Start()
     {
+        maxHealth = INITIAL_HEALTH;
+        currentHealth = INITIAL_HEALTH;
+
+        maxStamina = INITIAL_STAMINA;
+        currentStamina = INITIAL_STAMINA;
+
+        currentDamage = INITIAL_DAMAGE;
+
         // Player will start idle
         ChangeState(States.IDLE);
     }
@@ -74,5 +109,29 @@ public class MainCharacter_StateManager : MonoBehaviour
             case States.DEAD: currentState = DeadState; break;
         }
         currentState.Enter(this);
+    }
+
+
+    public void RecoverStamina()
+    {
+        currentStamina = Mathf.Max(maxStamina, currentStamina + (STAMINA_RECOVER_SPEED * Time.deltaTime));
+    }
+
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth = Math.Max(0, currentHealth - amount);
+
+        if (currentHealth == 0)
+            ChangeState(States.DEAD);
+        else
+            ChangeState(States.ON_HIT);
+    }
+
+
+    public void Heal(int amount)
+    {
+        currentHealth = Math.Min(maxHealth, currentHealth + amount);
+        ChangeState(States.HEAL);
     }
 }
