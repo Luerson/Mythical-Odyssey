@@ -132,6 +132,5 @@ public class MainCharacter_StateManager : MonoBehaviour
     public void Heal(int amount)
     {
         currentHealth = Math.Min(maxHealth, currentHealth + amount);
-        ChangeState(States.HEAL);
     }
 }
