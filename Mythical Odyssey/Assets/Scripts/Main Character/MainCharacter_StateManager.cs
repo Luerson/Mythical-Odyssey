@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MainCharacter_StateManager : MonoBehaviour
@@ -20,6 +21,41 @@ public class MainCharacter_StateManager : MonoBehaviour
         DEAD
     }
 
+    // Health related constants
+    public enum Health
+    {
+        INITIAL_HEALTH = 100,
+
+        INITIAL_HEAL_AMOUNT = INITIAL_HEALTH / 4
+    }
+
+    // Stamina related constants
+    public enum Stamina
+    {
+        INITIAL_STAMINA = 100,
+
+        RECOVER_SPEED = INITIAL_STAMINA / 10,
+        DASH_STAMINA_CONSUME = INITIAL_STAMINA / 2
+    }
+
+    // Values the character speed may assume
+    public enum Speed
+    {
+        NORMAL_SPEED = 120,
+        
+        DASH_SPEED = 3 * NORMAL_SPEED,
+        HEALING_SPEED = NORMAL_SPEED / 2
+    }
+
+    // Damage related constants
+    public enum Damage
+    {
+        INITIAL_DAMAGE = 10
+    }
+
+
+    /* End of Enums declarations */
+
 
     // Declaration and Initialization of each states classes
     MainCharacter_BaseState currentState;
@@ -27,26 +63,18 @@ public class MainCharacter_StateManager : MonoBehaviour
     MainCharacter_BaseState IdleState = new MainCharacter_IdleState();
     MainCharacter_BaseState RunState = new MainCharacter_RunState();
     MainCharacter_BaseState DashState = new MainCharacter_DashState();
+    MainCharacter_BaseState AttackState = new MainCharacter_AttackState();
+    MainCharacter_BaseState HealState = new MainCharacter_HealState();
     MainCharacter_BaseState ProtectState = new MainCharacter_ProtectState();
     MainCharacter_BaseState OnHitState = new MainCharacter_OnHitState();
     MainCharacter_BaseState DeadState = new MainCharacter_DeadState();
 
-    // Constants
-    public const int INITIAL_HEALTH = 100;
-    public const float INITIAL_STAMINA = 100f;
-    public const int INITIAL_DAMAGE = 10;
-    
-    public const float NORMAL_SPEED = 120f;
-    public const float DASH_SPEED = 3 * NORMAL_SPEED;
-    public const float HEALING_SPEED = NORMAL_SPEED / 2;
-    public const float STAMINA_RECOVER_SPEED = INITIAL_STAMINA / 10;
-
-    public const float DASH_STAMINA_CONSUME = INITIAL_STAMINA / 2;
 
 
     // Variables
     int maxHealth;
     int currentHealth;
+    int currentHealAmount;
 
     float maxStamina;
     float currentStamina;
@@ -64,13 +92,14 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     void Start()
     {
-        maxHealth = INITIAL_HEALTH;
-        currentHealth = INITIAL_HEALTH;
+        maxHealth = (int)Health.INITIAL_HEALTH;
+        currentHealth = (int)Health.INITIAL_HEALTH;
+        currentHealAmount = (int)Health.INITIAL_HEAL_AMOUNT;
 
-        maxStamina = INITIAL_STAMINA;
-        currentStamina = INITIAL_STAMINA;
+        maxStamina = (float)Stamina.INITIAL_STAMINA;
+        currentStamina = (float)Stamina.INITIAL_STAMINA; 
 
-        currentDamage = INITIAL_DAMAGE;
+        currentDamage = (int)Damage.INITIAL_DAMAGE;
 
         // Player will start idle
         ChangeState(States.IDLE);
@@ -104,9 +133,12 @@ public class MainCharacter_StateManager : MonoBehaviour
             case States.IDLE: currentState = IdleState; break;
             case States.RUN: currentState = RunState; break;
             case States.DASH: currentState = DashState; break;
+            case States.ATTACK: currentState = AttackState; break;
+            case States.HEAL: currentState = HealState; break;
             case States.PROTECT: currentState = ProtectState; break;
             case States.ON_HIT: currentState = OnHitState; break;
             case States.DEAD: currentState = DeadState; break;
+            default: Debug.Log("State not included in ChangeState method!"); break;
         }
         currentState.Enter(this);
     }
@@ -114,7 +146,7 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     public void RecoverStamina()
     {
-        currentStamina = Mathf.Max(maxStamina, currentStamina + (STAMINA_RECOVER_SPEED * Time.deltaTime));
+        currentStamina = Mathf.Max(maxStamina, currentStamina + ((int)Stamina.RECOVER_SPEED * Time.deltaTime));
     }
 
 
@@ -129,8 +161,60 @@ public class MainCharacter_StateManager : MonoBehaviour
     }
 
 
-    public void Heal(int amount)
+    public void Heal()
     {
-        currentHealth = Math.Min(maxHealth, currentHealth + amount);
+        currentHealth = Math.Min(maxHealth, currentHealth + currentHealAmount);
+    }
+
+    
+    public void ChangeSpeed(Speed speed)
+    {
+        currentSpeed = (int)speed;
+    }
+
+
+    /* The next methods must be used to move the character. */
+    /* The'll return true if the character moves            */
+    public bool MoveUp()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            // TODO: move the character
+            return true;
+        }
+        return false;
+    }
+
+
+    public bool MoveRight()
+    {
+        if (Input.GetKey(KeyCode.D))
+        {
+            // TODO: move the character
+            return true;
+        }
+        return false;
+    }
+
+
+    public bool MoveDown()
+    {
+        if (Input.GetKey(KeyCode.S))
+        {
+            // TODO: move the character
+            return true;
+        }
+        return false;
+    }
+
+
+    public bool MoveLeft()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            // TODO: move the character
+            return true;
+        }
+        return false;
     }
 }
