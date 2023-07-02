@@ -8,6 +8,8 @@ public class MainCharacter_DeadState : MainCharacter_BaseState
     public override void Enter(MainCharacter_StateManager player)
     {
         this.player = player;
+
+        player.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
 
