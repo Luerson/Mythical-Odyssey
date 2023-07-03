@@ -1,4 +1,3 @@
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class MainCharacter_OnHitState : MainCharacter_BaseState
@@ -27,6 +26,8 @@ public class MainCharacter_OnHitState : MainCharacter_BaseState
 
     public override void Update()
     {
+        player.RecoverStamina();
+
         timeCounter += Time.deltaTime;
         if (timeCounter >= 0.35)
         {

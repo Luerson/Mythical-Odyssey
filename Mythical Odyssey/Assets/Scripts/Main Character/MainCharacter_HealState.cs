@@ -18,7 +18,7 @@ public class MainCharacter_HealState : MainCharacter_BaseState
         }
 
         player.GetComponent<SpriteRenderer>().color = Color.green;
-        player.ChangeSpeed(MainCharacter_StateManager.Speed.HEALING_SPEED);
+        player.SetSpeed(MainCharacter_StateManager.Speed.HEALING_SPEED);
     }
 
 
@@ -43,9 +43,14 @@ public class MainCharacter_HealState : MainCharacter_BaseState
             player.ChangeState(MainCharacter_StateManager.States.IDLE);
             return;
         }
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetMouseButtonDown(0))
         {
-            player.ChangeState(MainCharacter_StateManager.States.PROTECT);
+            player.ChangeState(MainCharacter_StateManager.States.ATTACK);
+            return;
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            player.ChangeState(MainCharacter_StateManager.States.DASH);
             return;
         }
     }
