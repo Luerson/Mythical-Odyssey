@@ -245,6 +245,33 @@ public class MainCharacter_StateManager : MonoBehaviour
         return healingPotionsCounter;
     }
 
+    public int Get_MaxHealth()
+    {
+        return maxHealth;
+    }
+
+
+    public int Get_CurrentHealth()
+    {
+        return currentHealth;
+    }
+
+
+    public float Get_MaxStamina()
+    {
+        return maxStamina;
+    }
+
+
+    public float Get_CurrentStamina()
+    {
+        return currentStamina;
+    }
+
+
+    /****************************/
+    /****************************/
+    /****************************/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

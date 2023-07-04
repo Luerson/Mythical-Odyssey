@@ -12,15 +12,7 @@ public class MainCharacter_OnHitState : MainCharacter_BaseState
 
         timeCounter = 0;
         player.GetComponent<SpriteRenderer>().color = Color.yellow;
-
-        if (player.transform.rotation.y == 0)
-        {
-            player.GetComponent<Rigidbody2D>().velocity = Vector2.left * 8;
-        }
-        else
-        {
-            player.GetComponent<Rigidbody2D>().velocity = Vector2.right * 8;
-        }
+        BumpPlayer();
     }
 
 
@@ -47,5 +39,21 @@ public class MainCharacter_OnHitState : MainCharacter_BaseState
     {
         player.GetComponent<SpriteRenderer>().color = Color.white;
         player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    }
+
+
+    /* Useful Methods */
+
+
+    void BumpPlayer()
+    {
+        Vector2 direction = player.GetComponent<Rigidbody2D>().velocity.normalized;
+        float bumpForce = -5;
+
+        player.GetComponent<Rigidbody2D>().AddForce(direction * bumpForce, ForceMode2D.Impulse);
+
+        // Debug.Log("Velocity.x = " + velocity.x + "\nVelocity.y = " + velocity.y);
+        // velocity = player.GetComponent<Rigidbody2D>().velocity;
+        // Debug.Log("Velocity.x = " + velocity.x + "\nVelocity.y = " + velocity.y);
     }
 }
