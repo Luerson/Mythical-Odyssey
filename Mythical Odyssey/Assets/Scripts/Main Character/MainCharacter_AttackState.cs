@@ -31,6 +31,12 @@ public class MainCharacter_AttackState : MainCharacter_BaseState
     }
 
 
+    public override void FixedUpdate()
+    {
+
+    }
+
+
     public override void Exit()
     {
 

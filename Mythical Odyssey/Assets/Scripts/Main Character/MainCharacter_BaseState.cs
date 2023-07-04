@@ -8,5 +8,7 @@ public abstract class MainCharacter_BaseState
 
     public abstract void Update();
 
+    public abstract void FixedUpdate();
+
     public abstract void Exit();
 }

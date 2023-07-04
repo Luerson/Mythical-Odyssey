@@ -79,9 +79,12 @@ public class MainCharacter_StateManager : MonoBehaviour
 
 
 
-    // Variables
+    // Variables related to other game objects (maybe children)
     public Camera mainCamera;
     public Transform attackPoint;
+
+    // Variables
+    Rigidbody2D Rigidbody2D;
 
 
     int maxHealth;
@@ -107,6 +110,8 @@ public class MainCharacter_StateManager : MonoBehaviour
     void Start()
     {
         // Set variables
+        Rigidbody2D = GetComponent<Rigidbody2D>();
+
         maxHealth = (int)Health.INITIAL_HEALTH;
         currentHealth = (int)Health.INITIAL_HEALTH;
 
@@ -127,6 +132,12 @@ public class MainCharacter_StateManager : MonoBehaviour
     {
         // Update player (regardless the current state, the Update method will handle it by its own)
         currentState.Update();
+    }
+
+
+    private void FixedUpdate()
+    {
+        currentState.FixedUpdate();
     }
 
 
@@ -181,7 +192,7 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        currentHealth = Math.Max(0, currentHealth - amount/2);
+        currentHealth = Math.Max(0, currentHealth - amount);
 
         if (currentHealth == 0)
             ChangeState(States.DEAD);
@@ -205,67 +216,24 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     /* The next methods must be used to move the character. */
     /* The'll return true if the character moves            */
-    public bool MoveUp()
+
+
+    public bool Move()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(0, currentSpeed * Time.deltaTime, 0);
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
-            return true;
-        }
-        return false;
+        Rigidbody2D.velocity = new Vector2(horizontal, vertical) * currentSpeed;
+
+        if (horizontal < 0f)
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        else if (horizontal > 0f)
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+
+
+        return (horizontal != 0f || vertical != 0f);
     }
-
-
-    public bool MoveRight()
-    {
-        if (Input.GetKey(KeyCode.D))
-        {
-            if (transform.rotation.y == 0)
-            {
-                transform.Translate(currentSpeed * Time.deltaTime, 0, 0);
-            }
-            else
-            {
-                transform.Translate(-currentSpeed * Time.deltaTime, 0, 0);
-            }
-
-            return true;
-        }
-        return false;
-    }
-
-
-    public bool MoveDown()
-    {
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(0, -currentSpeed * Time.deltaTime, 0);
-
-            return true;
-        }
-        return false;
-    }
-
-
-    public bool MoveLeft()
-    {
-        if (Input.GetKey(KeyCode.A))
-        {
-            if (transform.rotation.y == 0)
-            {
-                transform.Translate(-currentSpeed * Time.deltaTime, 0, 0);
-            }
-            else
-            {
-                transform.Translate(currentSpeed * Time.deltaTime, 0, 0);
-            }
-
-            return true;
-        }
-        return false;
-    }
-
+    
 
     /***************/
     /* Get Methods */
@@ -278,10 +246,11 @@ public class MainCharacter_StateManager : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         TakeDamage(10);
     }
+
 
     void OnDrawGizmosSelected()
     {

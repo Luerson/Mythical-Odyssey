@@ -37,6 +37,12 @@ public class MainCharacter_OnHitState : MainCharacter_BaseState
     }
 
 
+    public override void FixedUpdate()
+    {
+
+    }
+
+
     public override void Exit()
     {
         player.GetComponent<SpriteRenderer>().color = Color.white;

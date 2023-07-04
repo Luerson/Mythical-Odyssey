@@ -27,10 +27,6 @@ public class MainCharacter_HealState : MainCharacter_BaseState
         player.RecoverStamina();
 
         timeCounter += Time.deltaTime;
-        player.MoveUp();
-        player.MoveDown();
-        player.MoveLeft();
-        player.MoveRight();
 
 
         if (timeCounter >= (int)MainCharacter_StateManager.HealingPotion.TIME_TO_COMPLETE_HEALING)
@@ -53,6 +49,12 @@ public class MainCharacter_HealState : MainCharacter_BaseState
             player.ChangeState(MainCharacter_StateManager.States.DASH);
             return;
         }
+    }
+
+
+    public override void FixedUpdate()
+    {
+        player.Move();
     }
 
 

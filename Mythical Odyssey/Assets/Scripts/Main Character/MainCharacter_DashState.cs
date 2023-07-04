@@ -39,6 +39,12 @@ public class MainCharacter_DashState : MainCharacter_BaseState
     }
 
 
+    public override void FixedUpdate()
+    {
+
+    }
+
+
     /* Useful Methods */
 
     Vector3 Get_VelocityVector()

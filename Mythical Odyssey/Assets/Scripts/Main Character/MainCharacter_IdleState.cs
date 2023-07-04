@@ -15,11 +15,6 @@ public class MainCharacter_IdleState : MainCharacter_BaseState
     {
         player.RecoverStamina();
 
-        if (player.MoveUp()  || player.MoveDown() || player.MoveLeft() || player.MoveRight())
-        {
-            player.ChangeState(MainCharacter_StateManager.States.RUN);
-            return;
-        }
         if (Input.GetKey(KeyCode.LeftShift))
         {
             player.ChangeState(MainCharacter_StateManager.States.HEAL);
@@ -36,6 +31,17 @@ public class MainCharacter_IdleState : MainCharacter_BaseState
             return;
         }
     }
+
+
+    public override void FixedUpdate()
+    {
+        if (player.Move())
+        {
+            player.ChangeState(MainCharacter_StateManager.States.RUN);
+            return;
+        }
+    }
+
 
 
     public override void Exit()

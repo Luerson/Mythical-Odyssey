@@ -10,10 +10,17 @@ public class MainCharacter_DeadState : MainCharacter_BaseState
         this.player = player;
 
         player.GetComponent<SpriteRenderer>().color = Color.red;
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
 
     public override void Update()
+    {
+
+    }
+
+
+    public override void FixedUpdate()
     {
 
     }

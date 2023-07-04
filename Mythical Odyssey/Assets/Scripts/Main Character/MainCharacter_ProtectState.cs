@@ -27,6 +27,12 @@ public class MainCharacter_ProtectState : MainCharacter_BaseState
     }
 
 
+    public override void FixedUpdate()
+    {
+
+    }
+
+
     public override void Exit()
     {
         player.GetComponent<SpriteRenderer>().color = Color.white;
