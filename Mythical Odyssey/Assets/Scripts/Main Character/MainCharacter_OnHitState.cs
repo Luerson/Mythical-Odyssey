@@ -51,9 +51,5 @@ public class MainCharacter_OnHitState : MainCharacter_BaseState
         float bumpForce = -5;
 
         player.GetComponent<Rigidbody2D>().AddForce(direction * bumpForce, ForceMode2D.Impulse);
-
-        // Debug.Log("Velocity.x = " + velocity.x + "\nVelocity.y = " + velocity.y);
-        // velocity = player.GetComponent<Rigidbody2D>().velocity;
-        // Debug.Log("Velocity.x = " + velocity.x + "\nVelocity.y = " + velocity.y);
     }
 }

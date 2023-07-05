@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -32,7 +33,7 @@ public class MainCharacter_StateManager : MonoBehaviour
     {
         INITIAL_HEAL_AMOUNT = Health.INITIAL_HEALTH / 4,
 
-        INITIAL_AMOUNT = 0,
+        INITIAL_AMOUNT = 2,
 
         TIME_TO_COMPLETE_HEALING = 3
     }
@@ -82,6 +83,7 @@ public class MainCharacter_StateManager : MonoBehaviour
     // Variables related to other game objects (maybe children)
     public Camera mainCamera;
     public Transform attackPoint;
+    public TextMeshProUGUI potionsText;
 
     // Variables
     Rigidbody2D Rigidbody2D;
@@ -99,6 +101,8 @@ public class MainCharacter_StateManager : MonoBehaviour
     float currentSpeed;
 
     int currentDamage;
+
+    int currentXP;
 
 
 
@@ -122,6 +126,10 @@ public class MainCharacter_StateManager : MonoBehaviour
         currentStamina = (float)Stamina.INITIAL_STAMINA; 
 
         currentDamage = (int)Attack.INITIAL_DAMAGE;
+
+        currentXP = 0;
+
+        potionsText.text = healingPotionsCounter.ToString();
 
         // Player will start idle
         ChangeState(States.IDLE);
@@ -205,12 +213,20 @@ public class MainCharacter_StateManager : MonoBehaviour
     {
         currentHealth = Math.Min(maxHealth, currentHealth + currentHealAmount);
         healingPotionsCounter--;
+
+        potionsText.text = healingPotionsCounter.ToString();
     }
 
     
     public void SetSpeed(Speed speed)
     {
         currentSpeed = (int)speed;
+    }
+
+
+    public void IncreaseXP(int amount)
+    {
+        currentXP += amount;
     }
 
 
@@ -275,12 +291,27 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        TakeDamage(10);
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(10);
+        }
     }
 
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("XP"))
+        {
+            IncreaseXP(10);
+            Destroy(collision.gameObject);
+        }
+    }
+
+
+    /*
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(attackPoint.position, 0.7f);
-    }
+    }     
+     */
 }
