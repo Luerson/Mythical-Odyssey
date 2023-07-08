@@ -1,4 +1,4 @@
-/*using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,13 +9,14 @@ public class Store : MonoBehaviour
 {
     public GameObject Protagonist;
     public GameObject Canvas;
+    public int IncreaseRage;
 
-    private float[] ProductPrice;
+    private int[] ProductPrice;
 
     private void Start()
     {
         Debug.Log("GotHere!");
-        ProductPrice = new float[5] { 10.0f, 10.0f, 10.0f, 10.0f, 10.0f };
+        ProductPrice = new int[5] { 10, 10, 10, 10, 10 };
     }
 
     public void SetProtagonist(GameObject Protagonist)
@@ -25,56 +26,34 @@ public class Store : MonoBehaviour
 
     public void SellLifePowerUp()
     {
-        if (Protagonist.GetComponent<ProtagonistMovement>().XP >= ProductPrice[0])
+        if (Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP() >= ProductPrice[0])
         {
-            Protagonist.GetComponent<ProtagonistMovement>().TotalLife += 2;
-            Protagonist.GetComponent<ProtagonistMovement>().XP -= ProductPrice[0];
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().TotalLife));
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().XP));
+            Protagonist.GetComponent<MainCharacter_StateManager>().IncreaseMaxHP(25);
+            Protagonist.GetComponent<MainCharacter_StateManager>().ChangeXP(-(ProductPrice[0]));
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_MaxHealth());
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP());
         }
     }
 
     public void SellEnergyPowerUp()
     {
-        if (Protagonist.GetComponent<ProtagonistMovement>().XP >= ProductPrice[1])
+        if (Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP() >= ProductPrice[1])
         {
-            Protagonist.GetComponent<ProtagonistMovement>().TotalEnergy += 2;
-            Protagonist.GetComponent<ProtagonistMovement>().XP -= ProductPrice[1];
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().TotalEnergy));
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().XP));
-        }
-    }
-
-    public void SellRecoveryPowerUp()
-    {
-        if (Protagonist.GetComponent<ProtagonistMovement>().XP >= ProductPrice[0])
-        {
-            Protagonist.GetComponent<ProtagonistMovement>().EnergyRecovery += 2;
-            Protagonist.GetComponent<ProtagonistMovement>().XP -= ProductPrice[2];
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().EnergyRecovery));
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().XP));
-        }
-    }
-
-    public void SellProtectionPowerUp()
-    {
-        if (Protagonist.GetComponent<ProtagonistMovement>().XP >= ProductPrice[0])
-        {
-            Protagonist.GetComponent<ProtagonistMovement>().ProtectionDefense += 2;
-            Protagonist.GetComponent<ProtagonistMovement>().XP -= ProductPrice[3];
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().ProtectionDefense));
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().XP));
+            Protagonist.GetComponent<MainCharacter_StateManager>().IncreaseMaxStamina(25);
+            Protagonist.GetComponent<MainCharacter_StateManager>().ChangeXP(-(ProductPrice[1]));
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_MaxStamina());
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP());
         }
     }
 
     public void SellHealingPotion()
     {
-        if (Protagonist.GetComponent<ProtagonistMovement>().XP >= ProductPrice[0])
+        if (Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP() >= ProductPrice[0])
         {
-            Protagonist.GetComponent<ProtagonistMovement>().HealingPotions += 1;
-            Protagonist.GetComponent<ProtagonistMovement>().Money -= ProductPrice[4];
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().HealingPotions));
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<ProtagonistMovement>().Money));
+            Protagonist.GetComponent<MainCharacter_StateManager>().IncreaseHealingPotionsTotal();
+            Protagonist.GetComponent<MainCharacter_StateManager>().ChangeXP(-(ProductPrice[4]));
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_HealingPotionsCounter());
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP());
         }
     }
 
@@ -83,4 +62,3 @@ public class Store : MonoBehaviour
         Canvas.SetActive(false);
     }
 }
-*/

@@ -224,11 +224,27 @@ public class MainCharacter_StateManager : MonoBehaviour
     }
 
 
-    public void IncreaseXP(int amount)
+    public void ChangeXP(int amount)
     {
         currentXP += amount;
     }
 
+    public void IncreaseMaxHP(int amount)
+    {
+        maxHealth += amount;
+        currentHealth = maxHealth;
+    }
+
+    public void IncreaseMaxStamina(int amount)
+    {
+        maxStamina += amount;
+        currentStamina = maxHealth;
+    }
+
+    public void IncreaseHealingPotionsTotal()
+    {
+        healingPotionsCounter++;
+    }
 
     /* The next methods must be used to move the character. */
     /* The'll return true if the character moves            */
@@ -284,6 +300,11 @@ public class MainCharacter_StateManager : MonoBehaviour
         return currentStamina;
     }
 
+    public float Get_CurrentXP()
+    {
+        return currentXP;
+    }
+
 
     /****************************/
     /****************************/
@@ -302,7 +323,7 @@ public class MainCharacter_StateManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("XP"))
         {
-            IncreaseXP(10);
+            ChangeXP(10);
             Destroy(collision.gameObject);
         }
     }

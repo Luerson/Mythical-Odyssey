@@ -110,15 +110,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: inventory_0
+      name: Store_Borders
       rect:
         serializedVersion: 2
-        x: 220
+        x: 238
         y: 117
-        width: 414
+        width: 388
         height: 333
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -131,7 +131,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: inventory_1
+      name: items_location
       rect:
         serializedVersion: 2
         x: 179
@@ -139,7 +139,7 @@ TextureImporter:
         width: 61
         height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,6 +147,48 @@ TextureImporter:
       bones: []
       spriteID: e391479b80007474a8117eef6dfffa97
       internalID: -1413102086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sheet
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 354
+        width: 66
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adc775e9090303d4583850b07ff1be31
+      internalID: 1668645860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: panel
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 153
+        width: 183
+        height: 248
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 468b3373af05986408284ccfd34727d3
+      internalID: -1305858397
       vertices: []
       indices: 
       edges: []
@@ -162,8 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      inventory_0: -1641172186
-      inventory_1: -306388908
+      Sheet: 1668645860
+      Store_Borders: 1263472114
+      items_location: -1413102086
+      panel: -1305858397
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
