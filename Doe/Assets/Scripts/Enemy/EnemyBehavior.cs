@@ -20,7 +20,7 @@ public class EnemyBehavior : MonoBehaviour
         Vector3 direction = (player.position - transform.position).normalized;
         transform.Translate(moveSpeed * Time.deltaTime * direction);
 
-        Vector2 scale = new Vector2(-(direction.x/Mathf.Abs(direction.x)), 1.0f);
+        Vector3 scale = new Vector3((direction.x > 0 ? -1 : 1), 1.0f, 1.0f);
         transform.localScale = scale;
     }
 
