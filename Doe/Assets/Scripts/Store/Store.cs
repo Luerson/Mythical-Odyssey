@@ -6,6 +6,7 @@ public class Store : MonoBehaviour
     public GameObject Protagonist;
     public GameObject Canvas;
     public int IncreaseRate;
+    public AudioClip Click_Sound;
 
     private int[] ProductPrice;
     private PauseScript Pause;
@@ -27,6 +28,7 @@ public class Store : MonoBehaviour
     {
         if (Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP() >= ProductPrice[0])
         {
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(Click_Sound);
             Protagonist.GetComponent<MainCharacter_StateManager>().IncreaseMaxHP(IncreaseRate);
             Protagonist.GetComponent<MainCharacter_StateManager>().ChangeXP(-(ProductPrice[0]));
             Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_MaxHealth()));
@@ -38,6 +40,7 @@ public class Store : MonoBehaviour
     {
         if (Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP() >= ProductPrice[1])
         {
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(Click_Sound);
             Protagonist.GetComponent<MainCharacter_StateManager>().IncreaseMaxStamina(IncreaseRate);
             Protagonist.GetComponent<MainCharacter_StateManager>().ChangeXP(-(ProductPrice[1]));
             Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_MaxStamina()));
@@ -49,6 +52,7 @@ public class Store : MonoBehaviour
     {
         if (Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP() >= ProductPrice[0])
         {
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(Click_Sound);
             Protagonist.GetComponent<MainCharacter_StateManager>().IncreaseHealingPotionsTotal();
             Protagonist.GetComponent<MainCharacter_StateManager>().ChangeXP(-(ProductPrice[4]));
             Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_HealingPotionsCounter()));

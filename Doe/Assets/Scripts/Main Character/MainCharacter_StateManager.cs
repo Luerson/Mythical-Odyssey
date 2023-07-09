@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class MainCharacter_StateManager : MonoBehaviour
 {
+    public AudioClip AttackSound;
+    public AudioClip DeathSound;
     Animator Animator;
     // All Main Character States.
     // The States must be public so it can be used by the States Classes to change
@@ -212,7 +214,10 @@ public class MainCharacter_StateManager : MonoBehaviour
         currentHealth = Math.Max(0, currentHealth - amount);
 
         if (currentHealth == 0)
+        {
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(DeathSound);
             ChangeState(States.DEAD);
+        }
         else
             ChangeState(States.ON_HIT);
     }
@@ -324,6 +329,11 @@ public class MainCharacter_StateManager : MonoBehaviour
         return currentXP;
     }
 
+    public AudioClip Get_Attack_Clip()
+    {
+        return AttackSound;
+    }
+
 
     /****************************/
     /****************************/
@@ -340,7 +350,7 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("XP"))
+        if (collision.gameObject.CompareTag("XP_Orb"))
         {
             ChangeXP(10);
             Destroy(collision.gameObject);

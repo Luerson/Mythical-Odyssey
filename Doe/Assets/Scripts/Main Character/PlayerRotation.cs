@@ -9,7 +9,7 @@ public class PlayerRotation : MonoBehaviour
 
     void Update()
     {
-        Vector3 mousePosition = player.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        /*Vector3 mousePosition = player.mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         if (mousePosition.x >= player.transform.position.x)
         {
@@ -18,6 +18,6 @@ public class PlayerRotation : MonoBehaviour
         else
         {
             transform.rotation = new Quaternion(0, 180, 0, 0);
-        }
+        }*/
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8002624711916857659}
   m_Layer: 0
   m_Name: Orbe de XP
-  m_TagString: XP
+  m_TagString: XP_Orb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

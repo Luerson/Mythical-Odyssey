@@ -11,6 +11,7 @@ public class MainCharacter_AttackState : MainCharacter_BaseState
     {
         this.player = player;
         Animator = player.gameObject.GetComponent<Animator>();
+        AudioClip Sound = GameObject.FindGameObjectWithTag("Player").GetComponent<MainCharacter_StateManager>().Get_Attack_Clip();
         currentTime = 0;
 
         Animator.SetBool("Attacking", true);
@@ -20,6 +21,7 @@ public class MainCharacter_AttackState : MainCharacter_BaseState
         {
             if (hit.CompareTag("Enemy"))
             {
+                Camera.main.GetComponent<AudioSource>().PlayOneShot(Sound);
                 hit.gameObject.GetComponent<EnemyBehavior>().TakeDamage(20);
             }
         }
