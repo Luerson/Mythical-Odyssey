@@ -467,6 +467,11 @@ Transform:
   m_Father: {fileID: 504595430}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &321626544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9220382346527263889, guid: c9a7b8c728db21a45a8f54d5fac21d54, type: 3}
+  m_PrefabInstance: {fileID: 6297419952731601451}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &378486584
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IdleDistanceReference: 5
   Protagonist: {fileID: 64253132}
-  Canvas: {fileID: 0}
+  Canvas: {fileID: 321626544}
 --- !u!1 &627310449
 GameObject:
   m_ObjectHideFlags: 0
