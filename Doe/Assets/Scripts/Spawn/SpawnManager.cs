@@ -19,8 +19,8 @@ public class SpawnManager : MonoBehaviour
     {
         transform.position = _playerPosition.position;
 
-        int spawnIndex = Random.Range(0, _spawnPoints.Length+1);
-        int enemyIndex = Random.Range(0, enemy.Length+1);
+        int spawnIndex = Random.Range(0, _spawnPoints.Length);
+        int enemyIndex = Random.Range(0, enemy.Length);
 
         Instantiate(enemy[enemyIndex], _spawnPoints[spawnIndex].position, Quaternion.identity);
     }
