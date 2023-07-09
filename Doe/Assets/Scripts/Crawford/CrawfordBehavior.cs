@@ -9,11 +9,12 @@ public class CrawfordBehavior : MonoBehaviour
     public GameObject Canvas;
 
     private bool MessageInScreen;
+    PauseScript Pause;
 
     private void Start()
     {
+        Pause = GameObject.FindGameObjectWithTag("Pause").GetComponent<PauseScript>();
         MessageInScreen = false;
-
         Canvas.SetActive(false);
     }
 
@@ -35,6 +36,7 @@ public class CrawfordBehavior : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
+                Pause.PauseGame();
                 Canvas.SetActive(true);
             }
 

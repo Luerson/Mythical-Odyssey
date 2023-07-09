@@ -65,7 +65,7 @@ Transform:
   m_Children:
   - {fileID: 3840440824042799384}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &873959893420175178
 SpriteRenderer:
@@ -182,6 +182,8 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 1
   damageAmount: 10
+  currentHealth: 50
+  XP_Orb: {fileID: 5572817610993596493, guid: 66f3402b1a7b54d4e8391a1624b4e0e2, type: 3}
 --- !u!95 &7748317859211065242
 Animator:
   serializedVersion: 5

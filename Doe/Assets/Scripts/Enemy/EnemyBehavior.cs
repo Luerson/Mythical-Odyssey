@@ -1,27 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    public Transform player;
     public float moveSpeed;
     public int damageAmount;
+    public int currentHealth;
+    public GameObject XP_Orb;
 
+    float currentTime;
+    Transform player;
+    OrbSpawner orbSpawner;
+    PauseScript Pause;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        orbSpawner = GameObject.FindGameObjectWithTag("XP").GetComponent<OrbSpawner>();
+        Pause = GameObject.FindGameObjectWithTag("Pause").GetComponent<PauseScript>();
+        currentTime = Time.time;
     }
 
     private void Update()
     {
-        Vector3 direction = (player.position - transform.position).normalized;
-        transform.Translate(moveSpeed * Time.deltaTime * direction);
+        if (!Pause.Paused())
+        {
+            Vector3 direction = (player.position - transform.position).normalized;
+            transform.Translate(moveSpeed * Time.deltaTime * direction);
 
-        Vector3 scale = new Vector3((direction.x > 0 ? -1 : 1), 1.0f, 1.0f);
-        transform.localScale = scale;
+            Vector3 scale = new Vector3((direction.x > 0 ? -1 : 1), 1.0f, 1.0f);
+            transform.localScale = scale;
+
+            if (Time.time > currentTime + 0.25f)
+            {
+                transform.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,6 +46,23 @@ public class EnemyBehavior : MonoBehaviour
             {
                 playerHealth.TakeDamage(damageAmount);
             }
+        }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+
+        if (currentHealth <= 0)
+        {
+            Vector3 position = transform.position;
+            orbSpawner.GeraOrb(position);
+            Destroy(gameObject);
+        }
+        else
+        {
+            transform.GetComponent<SpriteRenderer>().color = Color.yellow;
+            currentTime = Time.time;
         }
     }
 }

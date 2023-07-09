@@ -20,7 +20,7 @@ public class MainCharacter_AttackState : MainCharacter_BaseState
         {
             if (hit.CompareTag("Enemy"))
             {
-                Debug.Log("INIMIGO ATINGIDO!");
+                hit.gameObject.GetComponent<EnemyBehavior>().TakeDamage(20);
             }
         }
     }
@@ -29,6 +29,11 @@ public class MainCharacter_AttackState : MainCharacter_BaseState
     public override void Update()
     {
         currentTime += Time.deltaTime;
+        if (currentTime >= 0.4)
+        {
+            Animator.SetBool("Attacking", false);
+        }
+
         if (currentTime >= 0.75f)
         {
             player.ChangeState(MainCharacter_StateManager.States.IDLE);
@@ -44,7 +49,7 @@ public class MainCharacter_AttackState : MainCharacter_BaseState
 
     public override void Exit()
     {
-        Animator.SetBool("Attacking", false);
+        
     }
 
 

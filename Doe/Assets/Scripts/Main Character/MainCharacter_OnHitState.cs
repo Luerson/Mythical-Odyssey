@@ -15,7 +15,6 @@ public class MainCharacter_OnHitState : MainCharacter_BaseState
         BumpPlayer();
     }
 
-
     public override void Update()
     {
         player.RecoverStamina();

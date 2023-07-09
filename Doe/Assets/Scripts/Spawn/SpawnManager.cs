@@ -7,12 +7,14 @@ public class SpawnManager : MonoBehaviour
     public Transform[] _spawnPoints;
     private Transform _playerPosition;
     public GameObject[] enemy;
+    public float InitialSpawnTime;
+    public float IntervalSpawnTime;
 
     // Start is called before the first frame update
     void Start()
     {
         _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
-        InvokeRepeating("SpawnEnemies", 0.5f, 0.5f);
+        InvokeRepeating("SpawnEnemies", InitialSpawnTime, IntervalSpawnTime);
     }
 
     void SpawnEnemies()

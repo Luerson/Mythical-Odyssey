@@ -85,9 +85,13 @@ public class MainCharacter_StateManager : MonoBehaviour
     public Camera mainCamera;
     public Transform attackPoint;
     public TextMeshProUGUI potionsText;
+    public TextMeshProUGUI xpText;
 
     // Variables
     Rigidbody2D Rigidbody2D;
+
+    //Pause Object
+    PauseScript Pause;
 
 
     int maxHealth;
@@ -103,9 +107,7 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     int currentDamage;
 
-    int currentXP;
-
-
+    public int currentXP;
 
     /**********************/
     /* Main Unity Methods */
@@ -116,6 +118,8 @@ public class MainCharacter_StateManager : MonoBehaviour
     {
         // Set variables
         Rigidbody2D = GetComponent<Rigidbody2D>();
+
+        Pause = GameObject.FindGameObjectWithTag("Pause").GetComponent<PauseScript>();
 
         maxHealth = (int)Health.INITIAL_HEALTH;
         currentHealth = (int)Health.INITIAL_HEALTH;
@@ -131,6 +135,7 @@ public class MainCharacter_StateManager : MonoBehaviour
         currentXP = 0;
 
         potionsText.text = healingPotionsCounter.ToString();
+        xpText.text = currentXP.ToString();
 
         Animator = GetComponent<Animator>();
 
@@ -141,8 +146,9 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     void Update()
     {
-        // Update player (regardless the current state, the Update method will handle it by its own)
-        currentState.Update();
+        if (!Pause.Paused())
+            // Update player (regardless the current state, the Update method will handle it by its own)
+            currentState.Update();
     }
 
 
@@ -230,6 +236,8 @@ public class MainCharacter_StateManager : MonoBehaviour
     public void ChangeXP(int amount)
     {
         currentXP += amount;
+
+        xpText.text = currentXP.ToString();
     }
 
     public void IncreaseMaxHP(int amount)
@@ -247,6 +255,8 @@ public class MainCharacter_StateManager : MonoBehaviour
     public void IncreaseHealingPotionsTotal()
     {
         healingPotionsCounter++;
+
+        potionsText.text = healingPotionsCounter.ToString();
     }
 
     /* The next methods must be used to move the character. */
@@ -255,19 +265,24 @@ public class MainCharacter_StateManager : MonoBehaviour
 
     public bool Move()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        if (!Pause.Paused())
+        {
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
 
-        Rigidbody2D.velocity = new Vector2(horizontal, vertical) * currentSpeed;
+            Rigidbody2D.velocity = new Vector2(horizontal, vertical) * currentSpeed;
 
-        if (horizontal < 0f)
-            transform.localScale = new Vector3(1f, 1f, 1f);
-        else if (horizontal > 0f)
-            transform.localScale = new Vector3(-1f, 1f, 1f);
+            if (horizontal < 0f)
+                transform.localScale = new Vector3(1f, 1f, 1f);
+            else if (horizontal > 0f)
+                transform.localScale = new Vector3(-1f, 1f, 1f);
 
-        Animator.SetBool("Walking", (horizontal != 0f || vertical != 0f));
+            Animator.SetBool("Walking", (horizontal != 0f || vertical != 0f));
 
-        return (horizontal != 0f || vertical != 0f);
+            return (horizontal != 0f || vertical != 0f);
+        }
+
+        return false;
     }
     
 
