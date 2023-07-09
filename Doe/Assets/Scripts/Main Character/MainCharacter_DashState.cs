@@ -3,13 +3,15 @@ using UnityEngine;
 public class MainCharacter_DashState : MainCharacter_BaseState
 {
     MainCharacter_StateManager player;
-
     Vector3 initialPosition;
-
+    Animator Animator;
 
     public override void Enter(MainCharacter_StateManager player)
     {
         this.player = player;
+        Animator = player.gameObject.GetComponent<Animator>();
+
+        Animator.SetBool("Dashing", true);
 
         if (player.ConsumeStamina() == false)
         {
@@ -35,6 +37,7 @@ public class MainCharacter_DashState : MainCharacter_BaseState
 
     public override void Exit()
     {
+        Animator.SetBool("Dashing", false);
         player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 

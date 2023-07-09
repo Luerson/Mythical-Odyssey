@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class MainCharacter_StateManager : MonoBehaviour
 {
+    Animator Animator;
     // All Main Character States.
     // The States must be public so it can be used by the States Classes to change
     // the main character current state
@@ -130,6 +131,8 @@ public class MainCharacter_StateManager : MonoBehaviour
         currentXP = 0;
 
         potionsText.text = healingPotionsCounter.ToString();
+
+        Animator = GetComponent<Animator>();
 
         // Player will start idle
         ChangeState(States.IDLE);
@@ -262,6 +265,7 @@ public class MainCharacter_StateManager : MonoBehaviour
         else if (horizontal > 0f)
             transform.localScale = new Vector3(-1f, 1f, 1f);
 
+        Animator.SetBool("Walking", (horizontal != 0f || vertical != 0f));
 
         return (horizontal != 0f || vertical != 0f);
     }

@@ -30,8 +30,8 @@ public class Store : MonoBehaviour
         {
             Protagonist.GetComponent<MainCharacter_StateManager>().IncreaseMaxHP(25);
             Protagonist.GetComponent<MainCharacter_StateManager>().ChangeXP(-(ProductPrice[0]));
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_MaxHealth());
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP());
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_MaxHealth()));
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP()));
         }
     }
 
@@ -41,8 +41,8 @@ public class Store : MonoBehaviour
         {
             Protagonist.GetComponent<MainCharacter_StateManager>().IncreaseMaxStamina(25);
             Protagonist.GetComponent<MainCharacter_StateManager>().ChangeXP(-(ProductPrice[1]));
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_MaxStamina());
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP());
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_MaxStamina()));
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP()));
         }
     }
 
@@ -52,8 +52,8 @@ public class Store : MonoBehaviour
         {
             Protagonist.GetComponent<MainCharacter_StateManager>().IncreaseHealingPotionsTotal();
             Protagonist.GetComponent<MainCharacter_StateManager>().ChangeXP(-(ProductPrice[4]));
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_HealingPotionsCounter());
-            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP());
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_HealingPotionsCounter()));
+            Debug.Log(String.Format("{0}", Protagonist.GetComponent<MainCharacter_StateManager>().Get_CurrentXP()));
         }
     }
 

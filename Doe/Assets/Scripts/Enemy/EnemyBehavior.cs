@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,17 +12,20 @@ public class EnemyBehavior : MonoBehaviour
     {
         Vector3 direction = (player.position - transform.position).normalized;
         transform.Translate(moveSpeed * Time.deltaTime * direction);
+
+        Vector2 scale = new Vector2(-(direction.x/Mathf.Abs(direction.x)), 1.0f);
+        transform.localScale = scale;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            HealthController playerHealth = other.GetComponent<HealthController>();
-            if (playerHealth != null)
+            MainCharacter_StateManager playerHealth = other.GetComponent<MainCharacter_StateManager>();
+            if (playerHealth.Get_CurrentHealth() != 0)
             {
                 playerHealth.TakeDamage(damageAmount);
             }
         }
     }
-}*/
+}
