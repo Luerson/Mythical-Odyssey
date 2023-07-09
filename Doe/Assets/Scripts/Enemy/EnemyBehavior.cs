@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
@@ -7,6 +8,12 @@ public class EnemyBehavior : MonoBehaviour
     public Transform player;
     public float moveSpeed;
     public int damageAmount;
+
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+    }
 
     private void Update()
     {
