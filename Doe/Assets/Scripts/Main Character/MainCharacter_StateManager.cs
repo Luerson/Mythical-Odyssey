@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MainCharacter_StateManager : MonoBehaviour
 {
     public AudioClip AttackSound;
     public AudioClip DeathSound;
+    public GameObject RestartCanvas;
     Animator Animator;
     // All Main Character States.
     // The States must be public so it can be used by the States Classes to change
@@ -121,6 +123,8 @@ public class MainCharacter_StateManager : MonoBehaviour
         // Set variables
         Rigidbody2D = GetComponent<Rigidbody2D>();
 
+        RestartCanvas.SetActive(false);
+
         Pause = GameObject.FindGameObjectWithTag("Pause").GetComponent<PauseScript>();
 
         maxHealth = (int)Health.INITIAL_HEALTH;
@@ -216,7 +220,9 @@ public class MainCharacter_StateManager : MonoBehaviour
         if (currentHealth == 0)
         {
             Camera.main.GetComponent<AudioSource>().PlayOneShot(DeathSound);
+            RestartCanvas.SetActive(true);
             ChangeState(States.DEAD);
+            Time.timeScale = 0;
         }
         else
             ChangeState(States.ON_HIT);
@@ -274,6 +280,24 @@ public class MainCharacter_StateManager : MonoBehaviour
         {
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
+
+            if (horizontal < 0.0f && transform.position.x <= -30)
+            {
+                horizontal = 0.0f;
+            } else if (horizontal > 0.0f && transform.position.x >= 30)
+            {
+                horizontal = 0.0f;
+            }
+
+            if (vertical < 0.0f && transform.position.y <= -20)
+            {
+                vertical = 0.0f;
+            }
+            else if (vertical > 0.0f && transform.position.y >= 20)
+            {
+                vertical = 0.0f;
+            }
+
 
             Rigidbody2D.velocity = new Vector2(horizontal, vertical) * currentSpeed;
 
