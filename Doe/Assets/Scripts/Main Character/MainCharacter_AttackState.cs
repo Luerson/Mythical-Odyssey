@@ -14,9 +14,11 @@ public class MainCharacter_AttackState : MainCharacter_BaseState
         AudioClip Sound = GameObject.FindGameObjectWithTag("Player").GetComponent<MainCharacter_StateManager>().Get_Attack_Clip();
         currentTime = 0;
 
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
         Animator.SetBool("Attacking", true);
         player.attackPoint.position = Get_AttackVector();
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(player.attackPoint.position, 0.7f);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(player.attackPoint.position, 1f);
         foreach(Collider2D hit in hitEnemies)
         {
             if (hit.CompareTag("Enemy"))
